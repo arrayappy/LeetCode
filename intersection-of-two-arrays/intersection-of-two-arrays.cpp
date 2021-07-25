@@ -2,24 +2,14 @@ class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
         vector<int> res;
-        unordered_map<int, int> umap;
-        for(int i=0; i<nums1.size(); i++)
+        unordered_set<int> uset(nums1.begin(), nums1.end());
+        for(auto i:nums2)
         {
-            umap[nums1[i]]++;
-        }
-        for(int i=0; i<nums2.size();i++)
-        {
-            if(umap[nums2[i]]>0)
+            if(uset.count(i))
             {
-                umap[nums2[i]]--;
-                res.push_back(nums2[i]);
+                res.push_back(i);
+                uset.erase(i);
             }
-        }
-        unordered_set<int> uset(res.begin(), res.end());
-        res.clear();
-        for(auto i: uset)
-        {
-            res.push_back(i);
         }
         return res;
     }
